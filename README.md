@@ -20,19 +20,11 @@ Perfect for students of counterpoint, composers, and anyone exploring how to str
 ## Status & Roadmap
 
   Current (v1.0)
-  
   Supports 2 voices
-  
   Classifies consonances/dissonances under inversion
-  
   Console-based workflow
-  
   Planned Updates
-  
   Support for imaginary voices (hidden motion and implied parts)
-  
   3-voice inversion analysis
-  
   Possible GUI or web interface for easier interaction
-  
   More descriptive output (interval names like “Third” instead of raw numbers)
