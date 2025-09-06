@@ -29,3 +29,5 @@ Perfect for students of counterpoint, composers, and anyone exploring how to str
   - 3-voice inversion analysis
   - Possible GUI or web interface for easier interaction
   - More descriptive output (interval names like “Third” instead of raw numbers)
+    
+**TO NOTE** This app will be moved to a web based app and this will just be legacy soon to the devleopment process.
