@@ -1,5 +1,6 @@
 ﻿using Invertible_Counterpoint;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Tests.IntervalInversionCalculation
 {
@@ -29,10 +30,11 @@ namespace Tests.IntervalInversionCalculation
         {
             var result = _calculator.Calculate(jvIndex);
 
-            Assert.That(result.FixedConsonances, Is.EquivalentTo(expectedFixedCons));
-            Assert.That(result.FixedDissonances, Is.EquivalentTo(expectedFixedDis));
-            Assert.That(result.VariableConsances, Is.EquivalentTo(expectedVarCons));
-            Assert.That(result.VariableDissonance, Is.EquivalentTo(expectedVarDis));
+            // Compare by Interval.Number
+            Assert.That(result.FixedConsonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedCons));
+            Assert.That(result.FixedDissonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedDis));
+            Assert.That(result.VariableConsances.Select(i => i.Number), Is.EquivalentTo(expectedVarCons));
+            Assert.That(result.VariableDissonance.Select(i => i.Number), Is.EquivalentTo(expectedVarDis));
         }
     }
 }
