@@ -36,7 +36,7 @@ namespace Tests.SuspensionTest
             var expectedConsonances = _intervals.Values.Where(i => i.IsConsonant).OrderBy(i => i.Number).ToList();
             var expectedDissonances = _intervals.Values.Where(i => !i.IsConsonant).OrderBy(i => i.Number).ToList();
 
-            var actualConsonances = _result.FixedConsonances.OrderBy(i => i.Number).ToList();
+            var actualConsonances = _result.FixedConsonances.OrderBy(i => i.Number).ToList(); //not done yet
             var actualDissonances = _result.FixedDissonances.OrderBy(i => i.Number).ToList();
 
             Assert.That(actualConsonances.Count, Is.EqualTo(expectedConsonances.Count));
