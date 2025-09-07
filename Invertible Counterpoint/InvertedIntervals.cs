@@ -2,17 +2,17 @@
 {
     public class InvertedIntervals
     {
-        public List<int> FixedConsonances;
-        public List<int> FixedDissonances;
-        public List<int> VariableConsances;
-        public List<int> VariableDissonance;
+        public List<Interval> FixedConsonances;
+        public List<Interval> FixedDissonances;
+        public List<Interval> VariableConsances;
+        public List<Interval> VariableDissonance;
 
         public InvertedIntervals()
         {
-            FixedConsonances = new List<int>();
-            FixedDissonances = new List<int>();
-            VariableConsances = new List<int>();
-            VariableDissonance = new List<int>();
+            FixedConsonances = new List<Interval>();
+            FixedDissonances = new List<Interval>();
+            VariableConsances = new List<Interval>();
+            VariableDissonance = new List<Interval>();
         }
         
     }
