@@ -13,7 +13,6 @@ namespace Tests.IntervalInversionCalculation
             _calculator = new InvertedIntervalsCalculator();
         }
 
-        // UPDATED test vectors to match current calculator logic
         [TestCase(0, new[] { 0, 2, 4, 5, 7 }, new[] { 1, 3, 6 }, new int[0], new int[0])]
         [TestCase(1, new[] { 4 }, new int[0], new[] { 0, 2, 5, 7 }, new[] { 1, 3, 6 })]
         [TestCase(2, new[] { 0, 2, 5, 7 }, new[] { 1, 6 }, new[] { 4 }, new[] { 3 })]
