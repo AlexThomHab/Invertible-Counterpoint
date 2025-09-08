@@ -4,9 +4,9 @@
     {
         private Dictionary<int, Interval> _intervals = new()
         {
-            {0, new Interval(0, "Unison", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},       
-            {1, new Interval(1, "Second", false, SuspensionTreatmentEnum.CannotFormSuspension, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)},  
-            {2, new Interval(2, "Third", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)}, 
+            {0, new Interval(0, "Unison", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
+            {1, new Interval(1, "Second", false, SuspensionTreatmentEnum.CannotFormSuspension, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)},
+            {2, new Interval(2, "Third", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
             {3, new Interval(3, "Fourth", false, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)},
             {4, new Interval(4, "Fifth", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsFree)},
             {5, new Interval(5, "Sixth", true, SuspensionTreatmentEnum.NoteOfResolutionIsFree, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
@@ -25,7 +25,6 @@
             {7, new Interval(-7, "Octave", true, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
         };
 
-
         public InvertedIntervals Calculate(int jvIndex)
         {
             var invertedIntervals = new InvertedIntervals();
@@ -39,20 +38,17 @@
                     if (jvIndex < 0)
                     {
                         var selectedInterval = _intervalsInverted[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].UpperSuspensionTreatmentEnum, _intervalsInverted[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].LowerSuspensionTreatmentEnum, _intervalsInverted[targetIndex].LowerSuspensionTreatmentEnum);
+                        selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].UpperSuspensionTreatmentEnum, _intervals[i].UpperSuspensionTreatmentEnum);
+                        selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].LowerSuspensionTreatmentEnum, _intervals[i].LowerSuspensionTreatmentEnum);
                         invertedIntervals.FixedConsonances.Add(selectedInterval);
                         continue;
                     }
                     else
                     {
                         var selectedInterval = _intervals[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
                         invertedIntervals.FixedConsonances.Add(selectedInterval);
                         continue;
                     }
-                    
                 }
 
                 if (!_intervals[i].IsConsonant && !_intervals[targetIndex].IsConsonant)
@@ -61,16 +57,14 @@
                     if (jvIndex < 0)
                     {
                         var selectedInterval = _intervalsInverted[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].UpperSuspensionTreatmentEnum, _intervalsInverted[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].LowerSuspensionTreatmentEnum, _intervalsInverted[targetIndex].LowerSuspensionTreatmentEnum);
+                        selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].UpperSuspensionTreatmentEnum, _intervals[i].UpperSuspensionTreatmentEnum);
+                        selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].LowerSuspensionTreatmentEnum, _intervals[i].LowerSuspensionTreatmentEnum);
                         invertedIntervals.FixedDissonances.Add(selectedInterval);
                         continue;
                     }
                     else
                     {
                         var selectedInterval = _intervals[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
                         invertedIntervals.FixedDissonances.Add(selectedInterval);
                         continue;
                     }
@@ -81,16 +75,15 @@
                     if (jvIndex < 0)
                     {
                         var selectedInterval = _intervalsInverted[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].UpperSuspensionTreatmentEnum, _intervalsInverted[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].LowerSuspensionTreatmentEnum, _intervalsInverted[targetIndex].LowerSuspensionTreatmentEnum);
+                        selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 -i].UpperSuspensionTreatmentEnum, _intervals[i].UpperSuspensionTreatmentEnum);
+                        selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].LowerSuspensionTreatmentEnum, _intervals[i].LowerSuspensionTreatmentEnum);
+                        selectedInterval.Number = int.Abs(selectedInterval.Number);
                         invertedIntervals.VariableConsances.Add(selectedInterval);
                         continue;
                     }
                     else
                     {
                         var selectedInterval = _intervals[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
                         invertedIntervals.VariableConsances.Add(selectedInterval);
                         continue;
                     }
@@ -101,16 +94,16 @@
                     if (jvIndex < 0)
                     {
                         var selectedInterval = _intervalsInverted[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].UpperSuspensionTreatmentEnum, _intervalsInverted[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].LowerSuspensionTreatmentEnum, _intervalsInverted[targetIndex].LowerSuspensionTreatmentEnum);
+                        var intervalToCompare = _intervals[(_intervalsInverted[i].Number + int.Abs(jvIndex)) % 8];
+                        selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[i].UpperSuspensionTreatmentEnum, intervalToCompare.UpperSuspensionTreatmentEnum); //-6 should be compared to 5 from the original but its being compared
+                        selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervalsInverted[7 - i].LowerSuspensionTreatmentEnum, _intervals[i].LowerSuspensionTreatmentEnum);
+                        selectedInterval.Number = intervalToCompare.Number;
                         invertedIntervals.VariableDissonances.Add(selectedInterval);
                         continue;
                     }
                     else
                     {
                         var selectedInterval = _intervals[i];
-                        //selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
-                        //selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
                         invertedIntervals.VariableDissonances.Add(selectedInterval);
                         continue;
                     }
@@ -130,7 +123,13 @@
                 SuspensionTreatmentEnum.NoteOfResolutionIsDissonant,
                 SuspensionTreatmentEnum.NoteOfResolutionIsFree
             };
-
+            if (originalIntervalSuspension == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension &&
+                newIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant
+                || originalIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant &&
+                newIntervalSuspension == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)
+            {
+                return SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant;
+            }
 
             return (SuspensionTreatmentEnum)Math.Min((int)originalIntervalSuspension, (int)newIntervalSuspension);
         }
