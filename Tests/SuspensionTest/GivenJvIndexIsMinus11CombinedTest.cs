@@ -43,13 +43,13 @@ namespace Tests.SuspensionTest
             Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 5 }));
             Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 4, 7 }));
             Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3 }));
-            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.EquivalentTo(new[] { Array.Empty<int>() }));
+            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
             Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] {6 }));
 
             Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 6 }));
             Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 4, 7 }));
             Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 1, 3 }));
-            Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.EquivalentTo(Array.Empty<int>()));
+            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
             Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 5 }));
 
         }
