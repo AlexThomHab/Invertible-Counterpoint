@@ -13,7 +13,7 @@ namespace Tests.SuspensionTest
         private Dictionary<int, Interval> _intervals;
 
         [OneTimeSetUp]
-        public void WhenCalculatingSuspensionTreatment() //UNCOMBINED
+        public void WhenCalculatingSuspensionTreatment()
         {
             _calculator = new InvertedIntervalsCalculator();
             _result = _calculator.Calculate(-11);
