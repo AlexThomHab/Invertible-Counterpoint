@@ -37,7 +37,7 @@
                 {
                     if (jvIndex < 0)
                     {
-                        var jv0Interval = _intervals[i];
+                        var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[(int.Abs(jvIndex + i) % 7)]);
 
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
@@ -53,7 +53,7 @@
                     }
                     else
                     {
-                        var jv0Interval = _intervals[i];//HERERE i = 3
+                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
                         var shiftedIntervalToCompare = CopyInterval(_intervals[(int.Abs(jvIndex + i) % 7)]); //avoid referncing issue
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
                         {
@@ -71,7 +71,7 @@
                 {
                     if (jvIndex < 0)
                     {
-                        var jv0Interval = _intervals[i];
+                        var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[(int.Abs(jvIndex + i) % 7)]);
 
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
@@ -87,7 +87,7 @@
                     }
                     else
                     {
-                        var jv0Interval = _intervals[i];//HERERE i = 3
+                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
                         var shiftedIntervalToCompare = CopyInterval(_intervals[(int.Abs(jvIndex + i) % 7)]); //avoid referncing issue
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
                         {
@@ -105,7 +105,7 @@
                 {
                     if (jvIndex < 0)
                     {
-                        var jv0Interval = _intervals[i];
+                        var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[(int.Abs(jvIndex + i) % 7)]);
 
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
@@ -121,7 +121,7 @@
                     }
                     else
                     {
-                        var jv0Interval = _intervals[i];//HERERE i = 3
+                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
                         var shiftedIntervalToCompare = CopyInterval(_intervals[(int.Abs(jvIndex + i) % 7)]); //avoid referncing issue
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
                         {
@@ -139,7 +139,7 @@
                 {
                     if (jvIndex < 0)
                     {
-                        var jv0Interval = _intervals[i];
+                        var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[(int.Abs(jvIndex + i) % 7)]);
 
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
@@ -155,7 +155,7 @@
                     }
                     else
                     {
-                        var jv0Interval = _intervals[i];//HERERE i = 3
+                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
                         var shiftedIntervalToCompare = CopyInterval(_intervals[(int.Abs(jvIndex + i) % 7)]); //avoid referncing issue
                         if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
                         {
