@@ -6,7 +6,7 @@ using System.Linq;
 namespace Tests.SuspensionTest
 {
     [TestFixture]
-    internal class GivenJvIndexIsMinus11CombinedTest
+    internal class GivenJvIndexIsMinus11
     {
         private InvertedIntervalsCalculator _calculator;
         private InvertedIntervals _result;
