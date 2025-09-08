@@ -25,7 +25,7 @@ namespace Tests.SuspensionTest
             _result.FixedConsonances.ForEach(returnedIntervals.Add);
             _result.FixedDissonances.ForEach(returnedIntervals.Add);
             _result.VariableConsances.ForEach(returnedIntervals.Add);
-            _result.VariableDissonance.ForEach(returnedIntervals.Add);
+            _result.VariableDissonances.ForEach(returnedIntervals.Add);
 
             var upperSuspensionCannotForm = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();
             var upperSuspensionNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant).Select(x => x.Number).ToList();

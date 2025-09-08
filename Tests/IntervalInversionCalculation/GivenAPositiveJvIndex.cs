@@ -49,7 +49,7 @@ namespace Tests.IntervalInversionCalculation
             Assert.That(result.FixedConsonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedCons));
             Assert.That(result.FixedDissonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedDis));
             Assert.That(result.VariableConsances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedVarCons));
-            Assert.That(result.VariableDissonance.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedVarDis));
+            Assert.That(result.VariableDissonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedVarDis));
         }
     }
 }

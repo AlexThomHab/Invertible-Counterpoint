@@ -22,7 +22,7 @@ public class Program
             Console.WriteLine($"Fixed Consonances: {string.Join(", ", invertedIntervals.FixedConsonances)}");
             Console.WriteLine($"Fixed Dissonances: {string.Join(", ", invertedIntervals.FixedDissonances)}");
             Console.WriteLine($"Variable Consonances: {string.Join(", ", invertedIntervals.VariableConsances)}");
-            Console.WriteLine($"Variable Dissonances: {string.Join(", ", invertedIntervals.VariableDissonance)} \n");
+            Console.WriteLine($"Variable Dissonances: {string.Join(", ", invertedIntervals.VariableDissonances)} \n");
 
         }
     }

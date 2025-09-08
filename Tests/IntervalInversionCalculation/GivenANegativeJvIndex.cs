@@ -34,7 +34,7 @@ namespace Tests.IntervalInversionCalculation
             Assert.That(result.FixedConsonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedCons));
             Assert.That(result.FixedDissonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedDis));
             Assert.That(result.VariableConsances.Select(i => i.Number), Is.EquivalentTo(expectedVarCons));
-            Assert.That(result.VariableDissonance.Select(i => i.Number), Is.EquivalentTo(expectedVarDis));
+            Assert.That(result.VariableDissonances.Select(i => i.Number), Is.EquivalentTo(expectedVarDis));
         }
     }
 }
