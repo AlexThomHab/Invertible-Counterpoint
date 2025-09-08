@@ -6,6 +6,6 @@
         IfOnDownbeatMustFormSuspension,
         NoteOfResolutionIsDissonant,
         NoteOfResolutionIsFree,
-        None,
+        IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant,
     }
 }

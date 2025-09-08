@@ -24,28 +24,57 @@
 
                 if (_intervals[i].IsConsonant && _intervals[targetIndex].IsConsonant)
                 {
-                    invertedIntervals.FixedConsonances.Add(_intervals[i]);
+                    var selectedInterval = _intervals[i];
+                    selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
+                    selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
+                    invertedIntervals.FixedConsonances.Add(selectedInterval);
                     continue;
                 }
 
                 if (!_intervals[i].IsConsonant && !_intervals[targetIndex].IsConsonant)
                 {
-                    invertedIntervals.FixedDissonances.Add(_intervals[i]);
+                    var selectedInterval = _intervals[i];
+                    selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
+                    selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
+                    invertedIntervals.FixedDissonances.Add(selectedInterval);
                     continue;
                 }
 
                 if (_intervals[i].IsConsonant && !_intervals[targetIndex].IsConsonant)
                 {
-                    invertedIntervals.VariableConsances.Add(_intervals[i]);
+                    var selectedInterval = _intervals[i];
+                    selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
+                    selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
+                    invertedIntervals.VariableConsances.Add(selectedInterval);
                     continue;
                 }
 
                 if (!_intervals[i].IsConsonant && _intervals[targetIndex].IsConsonant)
                 {
-                    invertedIntervals.VariableDissonance.Add(_intervals[i]);
+                    var selectedInterval = _intervals[i];
+                    selectedInterval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].UpperSuspensionTreatmentEnum, _intervals[targetIndex].UpperSuspensionTreatmentEnum);
+                    selectedInterval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(_intervals[i].LowerSuspensionTreatmentEnum, _intervals[targetIndex].LowerSuspensionTreatmentEnum);
+                    invertedIntervals.VariableDissonance.Add(selectedInterval);
                 }
             }
             return invertedIntervals;
         }
+
+        public SuspensionTreatmentEnum StrictMostSuspensionTreatmentEnum(
+            SuspensionTreatmentEnum originalIntervalSuspension,
+            SuspensionTreatmentEnum newIntervalSuspension)
+        {
+            var validTreatments = new[]
+            {
+                SuspensionTreatmentEnum.CannotFormSuspension,
+                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension,
+                SuspensionTreatmentEnum.NoteOfResolutionIsDissonant,
+                SuspensionTreatmentEnum.NoteOfResolutionIsFree
+            };
+
+
+            return (SuspensionTreatmentEnum)Math.Min((int)originalIntervalSuspension, (int)newIntervalSuspension);
+        }
+
     }
 }

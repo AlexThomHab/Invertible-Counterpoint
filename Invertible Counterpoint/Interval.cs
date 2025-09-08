@@ -5,8 +5,8 @@
         public int Number { get; }
         public string Name { get; }
         public bool IsConsonant { get; }
-        public SuspensionTreatmentEnum UpperSuspensionTreatmentEnum { get; }
-        public SuspensionTreatmentEnum LowerSuspensionTreatmentEnum { get; }
+        public SuspensionTreatmentEnum UpperSuspensionTreatmentEnum { get; set; }
+        public SuspensionTreatmentEnum LowerSuspensionTreatmentEnum { get; set; }
         public Interval(int number, string name, bool isConsonant, SuspensionTreatmentEnum upperSuspensionTreatmentEnum, SuspensionTreatmentEnum lowerSuspensionTreatmentEnum)
         {
             Number = number;

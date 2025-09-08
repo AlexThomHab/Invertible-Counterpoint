@@ -10,22 +10,10 @@ namespace Tests.SuspensionTest
     {
         private InvertedIntervalsCalculator _calculator;
         private InvertedIntervals _result;
-        private Dictionary<int, Interval> _intervals;
 
         [OneTimeSetUp]
         public void WhenCalculatingSuspensionTreatment()
         {
-            _intervals = new Dictionary<int, Interval>() {
-                {0, new Interval(0, "Unison",  true,  SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
-                {1, new Interval(1, "Second",  false, SuspensionTreatmentEnum.CannotFormSuspension,        SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)},
-                {2, new Interval(2, "Third",   true,  SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
-                {3, new Interval(3, "Fourth",  false, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)},
-                {4, new Interval(4, "Fifth",   true,  SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsFree)},
-                {5, new Interval(5, "Sixth",   true,  SuspensionTreatmentEnum.NoteOfResolutionIsFree,      SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
-                {6, new Interval(6, "Seventh", false, SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension, SuspensionTreatmentEnum.CannotFormSuspension)},
-                {7, new Interval(7, "Octave",  true,  SuspensionTreatmentEnum.NoteOfResolutionIsDissonant, SuspensionTreatmentEnum.NoteOfResolutionIsDissonant)},
-            };
-
             _calculator = new InvertedIntervalsCalculator();
             _result = _calculator.Calculate(0);
         }
@@ -33,32 +21,31 @@ namespace Tests.SuspensionTest
         [Test]
         public void ThenTheCorrectSuspensionTreatmentIsReturned()
         {
-            var expectedConsonances = _intervals.Values.Where(i => i.IsConsonant).OrderBy(i => i.Number).ToList();
-            var expectedDissonances = _intervals.Values.Where(i => !i.IsConsonant).OrderBy(i => i.Number).ToList();
+            var returnedIntervals = new List<Interval>();
+            _result.FixedConsonances.ForEach(returnedIntervals.Add);
+            _result.FixedDissonances.ForEach(returnedIntervals.Add);
+            _result.VariableConsances.ForEach(returnedIntervals.Add);
+            _result.VariableDissonance.ForEach(returnedIntervals.Add);
 
-            var actualConsonances = _result.FixedConsonances.OrderBy(i => i.Number).ToList(); //not done yet
-            var actualDissonances = _result.FixedDissonances.OrderBy(i => i.Number).ToList();
+            var upperSuspensionCannotForm = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();
+            var upperSuspensionNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
+            var upperSuspensionIfOnDownbeatMustFormSuspension = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension).Select(x => x.Number).ToList();
+            var upperSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
 
-            Assert.That(actualConsonances.Count, Is.EqualTo(expectedConsonances.Count));
-            Assert.That(actualDissonances.Count, Is.EqualTo(expectedDissonances.Count));
+            var lowerSuspensionCannotForm = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();
+            var lowerSuspensionNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
+            var lowerSuspensionIfOnDownbeatMustFormSuspension = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension).Select(x => x.Number).ToList();
+            var lowerSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
 
-            for (int i = 0; i < expectedConsonances.Count; i++)
-            {
-                Assert.That(actualConsonances[i].Number, Is.EqualTo(expectedConsonances[i].Number));
-                Assert.That(actualConsonances[i].Name, Is.EqualTo(expectedConsonances[i].Name));
-                Assert.That(actualConsonances[i].IsConsonant, Is.EqualTo(expectedConsonances[i].IsConsonant));
-                Assert.That(actualConsonances[i].UpperSuspensionTreatmentEnum, Is.EqualTo(expectedConsonances[i].UpperSuspensionTreatmentEnum));
-                Assert.That(actualConsonances[i].LowerSuspensionTreatmentEnum, Is.EqualTo(expectedConsonances[i].LowerSuspensionTreatmentEnum));
-            }
+            Assert.That(upperSuspensionCannotForm, Is.EqualTo(new[] {1}));
+            Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EqualTo(new[]{0, 2, 4, 7}));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EqualTo(new[]{ 3, 6}));
+            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[] {5}));
 
-            for (int i = 0; i < expectedDissonances.Count; i++)
-            {
-                Assert.That(actualDissonances[i].Number, Is.EqualTo(expectedDissonances[i].Number));
-                Assert.That(actualDissonances[i].Name, Is.EqualTo(expectedDissonances[i].Name));
-                Assert.That(actualDissonances[i].IsConsonant, Is.EqualTo(expectedDissonances[i].IsConsonant));
-                Assert.That(actualDissonances[i].UpperSuspensionTreatmentEnum, Is.EqualTo(expectedDissonances[i].UpperSuspensionTreatmentEnum));
-                Assert.That(actualDissonances[i].LowerSuspensionTreatmentEnum, Is.EqualTo(expectedDissonances[i].LowerSuspensionTreatmentEnum));
-            }
+            Assert.That(lowerSuspensionCannotForm, Is.EqualTo(new[]{6}));
+            Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EqualTo(new[] { 0, 2, 5, 7 }));
+            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EqualTo(new[] { 1, 3 }));
+            Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[]{4}));
         }
     }
 }
