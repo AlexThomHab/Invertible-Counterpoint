@@ -10,13 +10,13 @@ namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
     [TestFixture]
     internal class GivenJvIndexIs0
     {
-        private InvertedIntervalsCalculator _calculator;
+        private TwoVoiceShiftedIntervalsGivenJvIndexCalculator _calculator;
         private InvertedIntervals _result;
 
         [OneTimeSetUp]
         public void WhenCalculatingSuspensionTreatment()
         {
-            _calculator = new InvertedIntervalsCalculator();
+            _calculator = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
             _result = _calculator.Calculate(0);
         }
 

@@ -2,9 +2,9 @@
 
 namespace Tests.ThreeVoiceVerticalShiftCounterpoint
 {
-    public class GivenJvPrimeAndJvDoublePrimeIs0
+    public class GivenJvPrimeAndJvDoublePrimeIsMin
     {
-        private InvertedIntervalsCalculator _calculator;
+        private TwoVoiceShiftedIntervalsGivenJvIndexCalculator _calculator;
 
         [OneTimeSetUp]
         public void Setup()
@@ -12,13 +12,13 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint
             var jvCalculator = new JvCalculator();
             var jvPrime = -7;
             var jvDoublePrime = -7;
-            var jvSigmaGivenJvPrimeAndJvDoublePrime = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(jvPrime, jvDoublePrime);
-            _calculator = new InvertedIntervalsCalculator();
+            var jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(jvPrime, jvDoublePrime);
+            var threeVoiceCalculator = new ThreeVoiceGivenJvIndexValuesCalculator();
+            threeVoiceCalculator.Calculate(jvPrime, jvDoublePrime, jvSigma);
         }
         [Test]
         public void WhenCalculatingInvertedIntervals_ThenExpectedResultReturned()
         {
-            var result = _calculator.Calculate(jvIndex);
 
             Assert.That(result.FixedConsonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedCons));
             Assert.That(result.FixedDissonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedDis));

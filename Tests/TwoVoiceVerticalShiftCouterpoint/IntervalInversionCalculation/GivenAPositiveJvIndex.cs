@@ -5,12 +5,12 @@ namespace Tests.TwoVoiceVerticalShiftCouterpoint.IntervalInversionCalculation
 {
     public class GivenAPositiveJvIndex
     {
-        private InvertedIntervalsCalculator _calculator;
+        private TwoVoiceShiftedIntervalsGivenJvIndexCalculator _calculator;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _calculator = new InvertedIntervalsCalculator();
+            _calculator = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
         }
 
         [TestCase(0, new[] { 0, 2, 4, 5, 7 }, new[] { 1, 3, 6 }, new int[0], new int[0])]
