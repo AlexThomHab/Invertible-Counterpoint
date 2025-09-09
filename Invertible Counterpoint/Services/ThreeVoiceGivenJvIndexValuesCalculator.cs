@@ -77,17 +77,56 @@ namespace Invertible_Counterpoint.Services
                 strictMostIntervalList[strictMostIntervalType].Add(i);
             }
 
-            return new InvertedIntervals();
+            return new InvertedIntervals
+            {
+                FixedConsonances = strictMostIntervalList[IntervalInStrictOrder.FixedConsonance]
+                    .Select(n => new Interval(n, GetIntervalName(n), true,
+                        SuspensionTreatmentEnum.CannotFormSuspension,
+                        SuspensionTreatmentEnum.CannotFormSuspension))
+                    .ToList(),
+
+                FixedDissonances = strictMostIntervalList[IntervalInStrictOrder.FixedDissonance]
+                    .Select(n => new Interval(n, GetIntervalName(n), false,
+                        SuspensionTreatmentEnum.CannotFormSuspension,
+                        SuspensionTreatmentEnum.CannotFormSuspension))
+                    .ToList(),
+
+                VariableConsonances = strictMostIntervalList[IntervalInStrictOrder.VariableConsonance]
+                    .Select(n => new Interval(n, GetIntervalName(n), true,
+                        SuspensionTreatmentEnum.CannotFormSuspension,
+                        SuspensionTreatmentEnum.CannotFormSuspension))
+                    .ToList(),
+
+                VariableDissonances = strictMostIntervalList[IntervalInStrictOrder.VariableDissonance]
+                    .Select(n => new Interval(n, GetIntervalName(n), false,
+                        SuspensionTreatmentEnum.CannotFormSuspension,
+                        SuspensionTreatmentEnum.CannotFormSuspension))
+                    .ToList()
+            };
+
         }
 
         private enum IntervalInStrictOrder
         {
-            // Ordered softest → strictest (so Max() = strict-most)
             FixedConsonance = 0,
             VariableDissonance = 1,
             VariableConsonance = 2,
             FixedDissonance = 3,
         }
+
+        private static string GetIntervalName(int number) => number switch
+        {
+            0 => "Unison",
+            1 => "Second",
+            2 => "Third",
+            3 => "Fourth",
+            4 => "Fifth",
+            5 => "Sixth",
+            6 => "Seventh",
+            7 => "Octave",
+            _ => $"Interval {number}"
+        };
+
 
         private static Interval CopyInterval(Interval sourceInterval) =>
             new Interval(sourceInterval.Number, sourceInterval.Name, sourceInterval.IsConsonant, sourceInterval.UpperSuspensionTreatmentEnum, sourceInterval.LowerSuspensionTreatmentEnum);
