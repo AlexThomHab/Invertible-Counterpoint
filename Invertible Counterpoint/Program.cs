@@ -32,7 +32,7 @@ public class Program
         var rows = new List<(Interval iv, string group)>();
         rows.AddRange(inv.FixedConsonances.Select(iv => (iv, "Fixed Consonance")));
         rows.AddRange(inv.FixedDissonances.Select(iv => (iv, "Fixed Dissonance")));
-        rows.AddRange(inv.VariableConsances.Select(iv => (iv, "Variable Consonance")));   // note: property name as in your code
+        rows.AddRange(inv.VariableConsonances.Select(iv => (iv, "Variable Consonance")));   // note: property name as in your code
         rows.AddRange(inv.VariableDissonances.Select(iv => (iv, "Variable Dissonance")));
 
         // Sort by interval number for readability

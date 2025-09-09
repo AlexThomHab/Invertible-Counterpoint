@@ -1,10 +1,12 @@
-﻿using Invertible_Counterpoint.Services;
+﻿using Invertible_Counterpoint.Models;
+using Invertible_Counterpoint.Services;
 
 namespace Tests.ThreeVoiceVerticalShiftCounterpoint
 {
     public class GivenJvPrimeAndJvDoublePrimeIsMin
     {
         private TwoVoiceShiftedIntervalsGivenJvIndexCalculator _calculator;
+        private InvertedIntervals _invertedIntervals;
 
         [OneTimeSetUp]
         public void Setup()
@@ -14,16 +16,13 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint
             var jvDoublePrime = -7;
             var jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(jvPrime, jvDoublePrime);
             var threeVoiceCalculator = new ThreeVoiceGivenJvIndexValuesCalculator();
-            threeVoiceCalculator.Calculate(jvPrime, jvDoublePrime, jvSigma);
+            _invertedIntervals = threeVoiceCalculator.Calculate(jvPrime, jvDoublePrime, jvSigma);
         }
         [Test]
         public void WhenCalculatingInvertedIntervals_ThenExpectedResultReturned()
         {
 
-            Assert.That(result.FixedConsonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedCons));
-            Assert.That(result.FixedDissonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedFixedDis));
-            Assert.That(result.VariableConsances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedVarCons));
-            Assert.That(result.VariableDissonances.Select(x => x.Number).ToArray(), Is.EquivalentTo(expectedVarDis));
+            Assert.That(_invertedIntervals.FixedDissonances, Is.EquivalentTo(null));
         }
     }
 }

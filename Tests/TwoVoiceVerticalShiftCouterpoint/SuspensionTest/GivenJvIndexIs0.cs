@@ -26,7 +26,7 @@ namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
             var returnedIntervals = new List<Interval>();
             _result.FixedConsonances.ForEach(returnedIntervals.Add);
             _result.FixedDissonances.ForEach(returnedIntervals.Add);
-            _result.VariableConsances.ForEach(returnedIntervals.Add);
+            _result.VariableConsonances.ForEach(returnedIntervals.Add);
             _result.VariableDissonances.ForEach(returnedIntervals.Add);
 
             var upperSuspensionCannotForm = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();

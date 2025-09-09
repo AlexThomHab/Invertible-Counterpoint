@@ -119,7 +119,7 @@ namespace Invertible_Counterpoint.Services
 
                         jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
                         jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableConsances.Add(jv0Interval);
+                        invertedIntervals.VariableConsonances.Add(jv0Interval);
                         continue;
                     }
                     else
@@ -133,7 +133,7 @@ namespace Invertible_Counterpoint.Services
                         }
                         jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
                         jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableConsances.Add(jv0Interval);
+                        invertedIntervals.VariableConsonances.Add(jv0Interval);
                         continue;
                     }
                 }
