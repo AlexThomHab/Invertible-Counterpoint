@@ -1,8 +1,8 @@
-﻿using Invertible_Counterpoint;
+﻿using Invertible_Counterpoint.Services;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Tests.IntervalInversionCalculation
+namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest.IntervalInversionCalculation
 {
     public class GivenANegativeJvIndex_Param
     {

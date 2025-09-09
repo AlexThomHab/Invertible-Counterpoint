@@ -1,4 +1,4 @@
-﻿namespace Invertible_Counterpoint
+﻿namespace Invertible_Counterpoint.Models
 {
     public class InvertedIntervals
     {
@@ -14,6 +14,6 @@
             VariableConsances = new List<Interval>();
             VariableDissonances = new List<Interval>();
         }
-        
+
     }
 }

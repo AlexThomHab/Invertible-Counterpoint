@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Invertible_Counterpoint;
+using Invertible_Counterpoint.Models;
+using Invertible_Counterpoint.Services;
+using Invertible_Counterpoint.Utility;
 
 public class Program
 {

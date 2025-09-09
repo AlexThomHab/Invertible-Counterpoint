@@ -1,12 +1,14 @@
-﻿using Invertible_Counterpoint;
+﻿using Invertible_Counterpoint.Models;
+using Invertible_Counterpoint.Services;
+using Invertible_Counterpoint.Utility;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests.SuspensionTest
+namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
 {
     [TestFixture]
-    internal class GivenJvIndexIs5
+    internal class GivenJvIndexIsMinus11
     {
         private InvertedIntervalsCalculator _calculator;
         private InvertedIntervals _result;
@@ -16,7 +18,7 @@ namespace Tests.SuspensionTest
         public void WhenCalculatingSuspensionTreatment()
         {
             _calculator = new InvertedIntervalsCalculator();
-            _result = _calculator.Calculate(5);
+            _result = _calculator.Calculate(-11);
         }
 
         [Test]
@@ -40,15 +42,15 @@ namespace Tests.SuspensionTest
             var lowerSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
             var lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
 
-            Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1 }));
+            Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 5 }));
             Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 4, 7 }));
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3, 5, }));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3 }));
             Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] {6 }));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 6 }));
 
-            Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 6 }));
+            Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 6 }));
             Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 4, 7 }));
-            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3 }));
+            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 1, 3 }));
             Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.Empty);
             Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 5 }));
 

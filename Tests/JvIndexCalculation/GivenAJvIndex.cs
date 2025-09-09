@@ -1,4 +1,5 @@
 using Invertible_Counterpoint;
+using Invertible_Counterpoint.Services;
 using NUnit.Framework;
 
 namespace Tests.JvIndexCalculation

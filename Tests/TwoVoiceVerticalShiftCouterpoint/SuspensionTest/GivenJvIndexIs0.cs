@@ -1,9 +1,11 @@
-﻿using Invertible_Counterpoint;
+﻿using Invertible_Counterpoint.Models;
+using Invertible_Counterpoint.Services;
+using Invertible_Counterpoint.Utility;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests.SuspensionTest
+namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
 {
     [TestFixture]
     internal class GivenJvIndexIs0
@@ -37,15 +39,15 @@ namespace Tests.SuspensionTest
             var lowerSuspensionIfOnDownbeatMustFormSuspension = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension).Select(x => x.Number).ToList();
             var lowerSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
 
-            Assert.That(upperSuspensionCannotForm, Is.EqualTo(new[] {1}));
-            Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EqualTo(new[]{0, 2, 4, 7}));
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EqualTo(new[]{ 3, 6}));
-            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[] {5}));
+            Assert.That(upperSuspensionCannotForm, Is.EqualTo(new[] { 1 }));
+            Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EqualTo(new[] { 0, 2, 4, 7 }));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EqualTo(new[] { 3, 6 }));
+            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[] { 5 }));
 
-            Assert.That(lowerSuspensionCannotForm, Is.EqualTo(new[]{6}));
+            Assert.That(lowerSuspensionCannotForm, Is.EqualTo(new[] { 6 }));
             Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EqualTo(new[] { 0, 2, 5, 7 }));
             Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EqualTo(new[] { 1, 3 }));
-            Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[]{4}));
+            Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.EqualTo(new[] { 4 }));
         }
     }
 }

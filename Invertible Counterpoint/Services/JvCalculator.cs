@@ -1,4 +1,4 @@
-﻿namespace Invertible_Counterpoint
+﻿namespace Invertible_Counterpoint.Services
 {
     public class JvCalculator
     {

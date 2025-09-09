@@ -1,4 +1,6 @@
-﻿namespace Invertible_Counterpoint
+﻿using Invertible_Counterpoint.Utility;
+
+namespace Invertible_Counterpoint.Models
 {
     public class Interval
     {
