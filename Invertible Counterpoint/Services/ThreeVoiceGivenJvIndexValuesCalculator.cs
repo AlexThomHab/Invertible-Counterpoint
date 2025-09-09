@@ -53,7 +53,6 @@ namespace Invertible_Counterpoint.Services
                 { IntervalInStrictOrder.VariableConsonance, variableConsonances },
                 { IntervalInStrictOrder.VariableDissonance, variableDissonances },
                 { IntervalInStrictOrder.FixedDissonance, fixedDissonances }
-
             };
 
             var strictMostIntervalList = new Dictionary<IntervalInStrictOrder, List<int>>()

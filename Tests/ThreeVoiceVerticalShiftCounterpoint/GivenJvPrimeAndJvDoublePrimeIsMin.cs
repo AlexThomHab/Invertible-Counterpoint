@@ -31,9 +31,9 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint
             var vd = _invertedIntervals.VariableDissonances.Select(iv => iv.Number).OrderBy(x => x).ToArray();
 
             Assert.That(fc, Is.EquivalentTo(new[] { 0, 2, 5, 7 }));
-            //Assert.That(fd, Is.EquivalentTo(new[] { 1, 3, 6 }));
+            Assert.That(fd, Is.EquivalentTo(new[] { 1, 6 }));
             Assert.That(vc, Is.EquivalentTo(new[] { 4 }));
-            //Assert.That(vd, Is.Empty);
+            Assert.That(vd, Is.EquivalentTo(new[] { 3 }));
         }
     }
 }
