@@ -2,9 +2,9 @@
 using NUnit.Framework;
 using System.Linq;
 
-namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest.IntervalInversionCalculation
+namespace Tests.TwoVoiceVerticalShiftCouterpoint.IntervalInversionCalculation
 {
-    public class GivenANegativeJvIndex_Param
+    public class GivenANegativeJvIndex
     {
         private InvertedIntervalsCalculator _calculator;
 

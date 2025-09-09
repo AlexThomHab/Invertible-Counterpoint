@@ -36,5 +36,10 @@
         {
             return _jvToScaleDegreeDictionary[jvIndex];
         }
+
+        public int JvSigmaGivenJvPrimeAndJvDoublePrime(int jvPrime, int jvDoublePrime)
+        {
+            return jvPrime + jvDoublePrime;
+        }
     }
 }

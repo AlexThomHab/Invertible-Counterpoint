@@ -3,7 +3,7 @@ using Invertible_Counterpoint.Utility;
 
 namespace Invertible_Counterpoint.Services
 {
-    public class InvertedIntervalsCalculator
+    public class TwoVoiceShiftedIntervalsGivenJvIndexCalculator
     {
         private Dictionary<int, Interval> _intervals = new()
         {
@@ -175,7 +175,7 @@ namespace Invertible_Counterpoint.Services
             return invertedIntervals;
         }
 
-        public SuspensionTreatmentEnum StrictMostSuspensionTreatmentEnum(
+        private SuspensionTreatmentEnum StrictMostSuspensionTreatmentEnum(
             SuspensionTreatmentEnum originalIntervalSuspension,
             SuspensionTreatmentEnum newIntervalSuspension)
         {

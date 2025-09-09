@@ -1,9 +1,6 @@
 ﻿using Invertible_Counterpoint.Models;
 using Invertible_Counterpoint.Services;
 using Invertible_Counterpoint.Utility;
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
 {

@@ -15,7 +15,7 @@ public class Program
             var jv = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(jv)) continue;
 
-            var calc = new InvertedIntervalsCalculator();
+            var calc = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
             var result = calc.Calculate(int.Parse(jv));
 
             // Print a tidy table for all intervals with upper/lower suspension symbols
