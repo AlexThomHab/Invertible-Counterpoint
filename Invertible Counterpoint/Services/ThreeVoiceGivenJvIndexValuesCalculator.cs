@@ -22,10 +22,11 @@ namespace Invertible_Counterpoint.Services
 
 
         private InvertedIntervals CombineThreeSetsOfIntervals(
-            InvertedIntervals intervalsWithRulesForVoiceOneAndTwo,
-            InvertedIntervals intervalsWithRulesForVoiceTwoAndThree,
-            InvertedIntervals intervalsWithRulesForVoiceOneAndThree)
+    InvertedIntervals intervalsWithRulesForVoiceOneAndTwo,
+    InvertedIntervals intervalsWithRulesForVoiceTwoAndThree,
+    InvertedIntervals intervalsWithRulesForVoiceOneAndThree)
         {
+            // 1) Build the “strict-most” interval-class buckets by number, as you already did.
             var fixedConsonances = new List<int>();
             fixedConsonances.AddRange(intervalsWithRulesForVoiceOneAndTwo.FixedConsonances.Select(x => x.Number));
             fixedConsonances.AddRange(intervalsWithRulesForVoiceTwoAndThree.FixedConsonances.Select(x => x.Number));
@@ -46,22 +47,21 @@ namespace Invertible_Counterpoint.Services
             variableDissonances.AddRange(intervalsWithRulesForVoiceTwoAndThree.VariableDissonances.Select(x => x.Number));
             variableDissonances.AddRange(intervalsWithRulesForVoiceOneAndThree.VariableDissonances.Select(x => x.Number));
 
-
             var intervalEnumToListDictionary = new Dictionary<IntervalInStrictOrder, List<int>>()
-            {
-                { IntervalInStrictOrder.FixedConsonance, fixedConsonances },
-                { IntervalInStrictOrder.VariableConsonance, variableConsonances },
-                { IntervalInStrictOrder.VariableDissonance, variableDissonances },
-                { IntervalInStrictOrder.FixedDissonance, fixedDissonances }
-            };
+    {
+        { IntervalInStrictOrder.FixedConsonance, fixedConsonances },
+        { IntervalInStrictOrder.VariableConsonance, variableConsonances },
+        { IntervalInStrictOrder.VariableDissonance, variableDissonances },
+        { IntervalInStrictOrder.FixedDissonance, fixedDissonances }
+    };
 
             var strictMostIntervalList = new Dictionary<IntervalInStrictOrder, List<int>>()
-            {
-                { IntervalInStrictOrder.FixedConsonance, new List<int>()},
-               { IntervalInStrictOrder.VariableConsonance, new List<int>()},
-               { IntervalInStrictOrder.VariableDissonance, new List<int>()},
-               { IntervalInStrictOrder.FixedDissonance, new List<int>()},
-            };
+    {
+        { IntervalInStrictOrder.FixedConsonance, new List<int>()},
+        { IntervalInStrictOrder.VariableConsonance, new List<int>()},
+        { IntervalInStrictOrder.VariableDissonance, new List<int>()},
+        { IntervalInStrictOrder.FixedDissonance, new List<int>()},
+    };
 
             for (int i = 0; i <= 7; i++)
             {
@@ -70,40 +70,78 @@ namespace Invertible_Counterpoint.Services
                 {
                     if (entry.Value.Contains(i))
                     {
+                        // because the enum is ordered strict->soft (0..3), later hits overwrite
+                        // leaving the softest class seen so far — i.e., "strict-most" semantics you intended
                         strictMostIntervalType = entry.Key;
                     }
                 }
                 strictMostIntervalList[strictMostIntervalType].Add(i);
             }
 
+            // 2) Helper to get strict-most suspensions for a given interval number across the three 2-voice results
+            (SuspensionTreatmentEnum upper, SuspensionTreatmentEnum lower) GetStrictMostSuspensions(int n)
+            {
+                // Gather the three sets’ intervals that match this number (across all four categories)
+                IEnumerable<Interval> collect(InvertedIntervals ii) =>
+                    ii.FixedConsonances
+                      .Concat(ii.FixedDissonances)
+                      .Concat(ii.VariableConsonances)
+                      .Concat(ii.VariableDissonances)
+                      .Where(x => x.Number == n);
+
+                var all = collect(intervalsWithRulesForVoiceOneAndTwo)
+                         .Concat(collect(intervalsWithRulesForVoiceTwoAndThree))
+                         .Concat(collect(intervalsWithRulesForVoiceOneAndThree))
+                         .ToList();
+
+                // If for any reason none are present, default to the softest per your aggregator’s seed.
+                var uppers = all.Select(x => x.UpperSuspensionTreatmentEnum).ToArray();
+                var lowers = all.Select(x => x.LowerSuspensionTreatmentEnum).ToArray();
+
+                var upper = SuspensionService.StrictMost(uppers.Length > 0
+                    ? uppers
+                    : new[] { SuspensionTreatmentEnum.NoteOfResolutionIsFree });
+
+                var lower = SuspensionService.StrictMost(lowers.Length > 0
+                    ? lowers
+                    : new[] { SuspensionTreatmentEnum.NoteOfResolutionIsFree });
+
+                return (upper, lower);
+            }
+
+            // 3) Build the final InvertedIntervals using the strict-most *suspension* for each interval number.
             return new InvertedIntervals
             {
                 FixedConsonances = strictMostIntervalList[IntervalInStrictOrder.FixedConsonance]
-                    .Select(n => new Interval(n, GetIntervalName(n), true,
-                        SuspensionTreatmentEnum.CannotFormSuspension,
-                        SuspensionTreatmentEnum.CannotFormSuspension))
-                    .ToList(),
+                    .Select(n =>
+                    {
+                        var (upper, lower) = GetStrictMostSuspensions(n);
+                        return new Interval(n, GetIntervalName(n), true, upper, lower);
+                    }).ToList(),
 
                 FixedDissonances = strictMostIntervalList[IntervalInStrictOrder.FixedDissonance]
-                    .Select(n => new Interval(n, GetIntervalName(n), false,
-                        SuspensionTreatmentEnum.CannotFormSuspension,
-                        SuspensionTreatmentEnum.CannotFormSuspension))
-                    .ToList(),
+                    .Select(n =>
+                    {
+                        var (upper, lower) = GetStrictMostSuspensions(n);
+                        return new Interval(n, GetIntervalName(n), false, upper, lower);
+                    }).ToList(),
 
                 VariableConsonances = strictMostIntervalList[IntervalInStrictOrder.VariableConsonance]
-                    .Select(n => new Interval(n, GetIntervalName(n), true,
-                        SuspensionTreatmentEnum.CannotFormSuspension,
-                        SuspensionTreatmentEnum.CannotFormSuspension))
-                    .ToList(),
+                    .Select(n =>
+                    {
+                        var (upper, lower) = GetStrictMostSuspensions(n);
+                        return new Interval(n, GetIntervalName(n), true, upper, lower);
+                    }).ToList(),
 
                 VariableDissonances = strictMostIntervalList[IntervalInStrictOrder.VariableDissonance]
-                    .Select(n => new Interval(n, GetIntervalName(n), false,
-                        SuspensionTreatmentEnum.CannotFormSuspension,
-                        SuspensionTreatmentEnum.CannotFormSuspension))
-                    .ToList()
+                    .Select(n =>
+                    {
+                        var (upper, lower) = GetStrictMostSuspensions(n);
+                        return new Interval(n, GetIntervalName(n), false, upper, lower);
+                    }).ToList()
             };
-
         }
+
 
         private enum IntervalInStrictOrder
         {
