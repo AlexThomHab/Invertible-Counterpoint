@@ -42,30 +42,18 @@ namespace Invertible_Counterpoint.Services
                     {
                         var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[int.Abs(jvIndex + i) % 7]);
-
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.LowerSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.FixedConsonances.Add(jv0Interval);
+                        var jvIsNegative = true;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.FixedConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                     else
                     {
-                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
-                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]); //avoid referncing issue
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.UpperSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.FixedConsonances.Add(jv0Interval);
+                        var jv0Interval = CopyInterval(_intervals[i]);
+                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]);
+                        var jvIsNegative = false;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.FixedConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                 }
@@ -76,30 +64,18 @@ namespace Invertible_Counterpoint.Services
                     {
                         var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[int.Abs(jvIndex + i) % 7]);
-
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.LowerSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.FixedDissonances.Add(jv0Interval);
+                        var jvIsNegative = true;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.FixedDissonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                     else
                     {
-                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
-                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]); //avoid referncing issue
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.UpperSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.FixedDissonances.Add(jv0Interval);
+                        var jv0Interval = CopyInterval(_intervals[i]);
+                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]);
+                        var jvIsNegative = false;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.FixedDissonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                 }
@@ -110,30 +86,18 @@ namespace Invertible_Counterpoint.Services
                     {
                         var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[int.Abs(jvIndex + i) % 7]);
-
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.LowerSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableConsonances.Add(jv0Interval);
+                        var jvIsNegative = true;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.VariableConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                     else
                     {
-                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
-                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]); //avoid referncing issue
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.UpperSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableConsonances.Add(jv0Interval);
+                        var jv0Interval = CopyInterval(_intervals[i]);
+                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]);
+                        var jvIsNegative = false;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.VariableConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
                 }
@@ -144,58 +108,23 @@ namespace Invertible_Counterpoint.Services
                     {
                         var jv0Interval = CopyInterval(_intervals[i]);
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[int.Abs(jvIndex + i) % 7]);
-
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.LowerSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableDissonances.Add(jv0Interval);
-                        continue;
+                        var jvIsNegative = true;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.VariableDissonances.Add(combineTwoIntervalsSuspensionsResult);
                     }
                     else
                     {
-                        var jv0Interval = CopyInterval(_intervals[i]);//HERERE i = 3
-                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]); //avoid referncing issue
-                        if (int.Abs(jvIndex + i) > 7 && shiftedIntervalToCompare.Name == "Second")
-                        {
-                            shiftedIntervalToCompare.UpperSuspensionTreatmentEnum =
-                                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension;
-                        }
-                        jv0Interval.UpperSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.UpperSuspensionTreatmentEnum, shiftedIntervalToCompare.UpperSuspensionTreatmentEnum);
-                        jv0Interval.LowerSuspensionTreatmentEnum = StrictMostSuspensionTreatmentEnum(jv0Interval.LowerSuspensionTreatmentEnum, shiftedIntervalToCompare.LowerSuspensionTreatmentEnum);
-                        invertedIntervals.VariableDissonances.Add(jv0Interval);
-                        continue;
+                        var jv0Interval = CopyInterval(_intervals[i]);
+                        var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]);
+                        var jvIsNegative = false;
+                        var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        invertedIntervals.VariableDissonances.Add(combineTwoIntervalsSuspensionsResult);
                     }
                 }
             }
             return invertedIntervals;
         }
 
-        private SuspensionTreatmentEnum StrictMostSuspensionTreatmentEnum(
-            SuspensionTreatmentEnum originalIntervalSuspension,
-            SuspensionTreatmentEnum newIntervalSuspension)
-        {
-            var validTreatments = new[]
-            {
-                SuspensionTreatmentEnum.CannotFormSuspension,
-                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension,
-                SuspensionTreatmentEnum.NoteOfResolutionIsDissonant,
-                SuspensionTreatmentEnum.NoteOfResolutionIsFree
-            };
-            if (originalIntervalSuspension == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension &&
-                newIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant
-                || originalIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant &&
-                newIntervalSuspension == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension)
-            {
-                return SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant;
-            }
-
-            return (SuspensionTreatmentEnum)Math.Min((int)originalIntervalSuspension, (int)newIntervalSuspension);
-        }
         private static Interval CopyInterval(Interval sourceInterval) =>
             new Interval(sourceInterval.Number, sourceInterval.Name, sourceInterval.IsConsonant, sourceInterval.UpperSuspensionTreatmentEnum, sourceInterval.LowerSuspensionTreatmentEnum);
 
