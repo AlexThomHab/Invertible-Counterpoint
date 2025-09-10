@@ -1,38 +1,48 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using Invertible_Counterpoint.Models;
 using Invertible_Counterpoint.Services;
 using NUnit.Framework;
+using static InvertedIntervalsTestHelpers;
 
 namespace Tests.ThreeVoiceVerticalShiftCounterpoint.IntervalInversionCalculation
 {
     public class GivenJvPrimeIsMinus11AndJvDoublePrimeIs3
     {
-        private InvertedIntervals _invertedIntervals;
+        private List<InvertedIntervals> _rows;
+        private int _jvPrime, _jvDoublePrime, _jvSigma;
 
         [OneTimeSetUp]
         public void Setup()
         {
             var jvCalculator = new JvCalculator();
-            var jvPrime = -11;
-            var jvDoublePrime = 3;
-            var jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(jvPrime, jvDoublePrime);
+            _jvPrime = -11;
+            _jvDoublePrime = 3;
+            _jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(_jvPrime, _jvDoublePrime);
 
             var threeVoiceCalculator = new ThreeVoiceGivenJvIndexValuesCalculator();
-            _invertedIntervals = threeVoiceCalculator.Calculate(jvPrime, jvDoublePrime, jvSigma);
+            _rows = threeVoiceCalculator.Calculate(_jvPrime, _jvDoublePrime, _jvSigma);
         }
 
         [Test]
-        public void WhenCalculatingInvertedIntervals_ThenExpectedResultReturned()
+        public void ThenThreeRowsAreReturned()
         {
-            var fixedConsonance = _invertedIntervals.FixedConsonances.Select(interval => interval.Number).OrderBy(x => x).ToArray();
-            var fixedDissonance = _invertedIntervals.FixedDissonances.Select(interval => interval.Number).OrderBy(x => x).ToArray();
-            var variableConsonance = _invertedIntervals.VariableConsonances.Select(interval => interval.Number).OrderBy(x => x).ToArray();
-            var variableDissonance = _invertedIntervals.VariableDissonances.Select(interval => interval.Number).OrderBy(x => x).ToArray();
+            Assert.That(_rows, Is.Not.Null);
+            Assert.That(_rows.Count, Is.EqualTo(3));
+        }
 
-            Assert.That(fixedConsonance, Is.EquivalentTo(new[] { 4 }));
-            Assert.That(fixedDissonance, Is.EquivalentTo(new[] { 1, 3 }));
-            Assert.That(variableConsonance, Is.EquivalentTo(new[] { 0, 2, 5, 7 }));
-            Assert.That(variableDissonance, Is.EquivalentTo(new[] { 6 }));
+        [Test]
+        public void EachRowMatchesTwoVoiceCalculator()
+        {
+            var two = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
+
+            var expected0 = two.Calculate(_jvPrime);        // I↔II
+            var expected1 = two.Calculate(_jvDoublePrime);  // II↔III
+            var expected2 = two.Calculate(_jvSigma);        // I↔III
+
+            AssertIntervalsEqual(_rows[0], expected0);
+            AssertIntervalsEqual(_rows[1], expected1);
+            AssertIntervalsEqual(_rows[2], expected2);
         }
     }
 }

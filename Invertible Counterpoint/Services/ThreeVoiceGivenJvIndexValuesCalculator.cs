@@ -6,7 +6,7 @@ namespace Invertible_Counterpoint.Services
 {
     public class ThreeVoiceGivenJvIndexValuesCalculator
     {
-        public InvertedIntervals Calculate(int jvPrime, int jvDoublePrime, int jvSigma)
+        public List<InvertedIntervals> Calculate(int jvPrime, int jvDoublePrime, int jvSigma)
         {
             var twoVoiceJvCalculator = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
 
@@ -14,10 +14,13 @@ namespace Invertible_Counterpoint.Services
             var intervalsWithRulesForVoiceTwoAndThree = twoVoiceJvCalculator.Calculate(jvDoublePrime);
             var intervalsWithRulesForVoiceOneAndThree = twoVoiceJvCalculator.Calculate(jvSigma);
 
-            //combining rules
-
-            var result = CombineThreeSetsOfIntervals(intervalsWithRulesForVoiceOneAndTwo, intervalsWithRulesForVoiceTwoAndThree, intervalsWithRulesForVoiceOneAndThree);
-            return result;
+            var intervalsList = new List<InvertedIntervals>()
+            {
+                intervalsWithRulesForVoiceOneAndTwo,
+                intervalsWithRulesForVoiceTwoAndThree,
+                intervalsWithRulesForVoiceOneAndThree
+            };
+            return intervalsList;
         }
 
 

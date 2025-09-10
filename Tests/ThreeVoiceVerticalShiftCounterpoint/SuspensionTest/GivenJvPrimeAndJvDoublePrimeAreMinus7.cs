@@ -1,62 +1,36 @@
-﻿using Invertible_Counterpoint.Services;
-using Invertible_Counterpoint.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Invertible_Counterpoint.Services;
 using Invertible_Counterpoint.Models;
+using NUnit.Framework;
+using static InvertedIntervalsTestHelpers;
 
 namespace Tests.ThreeVoiceVerticalShiftCounterpoint.SuspensionTest
 {
     internal class GivenJvPrimeAndJvDoublePrimeAreMinus7
     {
-        private InvertedIntervals _result;
+        private List<InvertedIntervals> _rows;
+        private int _jvPrime, _jvDoublePrime, _jvSigma;
 
         [OneTimeSetUp]
         public void WhenWorkingOutIntervalSuspensions()
         {
             var jvCalculator = new JvCalculator();
-            var jvPrime = -7;
-            var jvDoublePrime = -7;
-            var jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(jvPrime, jvDoublePrime);
+            _jvPrime = -7;
+            _jvDoublePrime = -7;
+            _jvSigma = jvCalculator.JvSigmaGivenJvPrimeAndJvDoublePrime(_jvPrime, _jvDoublePrime);
 
             var threeVoiceCalculator = new ThreeVoiceGivenJvIndexValuesCalculator();
-            _result = threeVoiceCalculator.Calculate(jvPrime, jvDoublePrime, jvSigma);
+            _rows = threeVoiceCalculator.Calculate(_jvPrime, _jvDoublePrime, _jvSigma);
         }
 
         [Test]
-        public void ThenTheCorrectResultIsReturned()
+        public void EachRowSuspensionsMatchTwoVoice()
         {
-            var returnedIntervals = new List<Interval>();
-            _result.FixedConsonances.ForEach(returnedIntervals.Add);
-            _result.FixedDissonances.ForEach(returnedIntervals.Add);
-            _result.VariableConsonances.ForEach(returnedIntervals.Add);
-            _result.VariableDissonances.ForEach(returnedIntervals.Add);
+            var two = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
 
-            var upperSuspensionCannotForm = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();
-            var upperSuspensionNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
-            var upperSuspensionIfOnDownbeatMustFormSuspension = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension).Select(x => x.Number).ToList();
-            var upperSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
-            var upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.UpperSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
-
-            var lowerSuspensionCannotForm = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.CannotFormSuspension).Select(x => x.Number).ToList();
-            var lowerSuspensionNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
-            var lowerSuspensionIfOnDownbeatMustFormSuspension = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension).Select(x => x.Number).ToList();
-            var lowerSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
-            var lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
-
-            Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1 }));
-            Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 5, 7 }));
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3, 6 }));
-            Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 4 }));
-
-            Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 6 }));
-            Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 2, 5, 7 }));
-            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 1,4 }));
-            Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.Empty);
-            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 3 }));
+            AssertIntervalsEqual(_rows[0], two.Calculate(_jvPrime));
+            AssertIntervalsEqual(_rows[1], two.Calculate(_jvDoublePrime));
+            AssertIntervalsEqual(_rows[2], two.Calculate(_jvSigma));
         }
     }
 }
