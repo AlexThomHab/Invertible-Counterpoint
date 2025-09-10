@@ -41,7 +41,7 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint.SuspensionTest
             var lowerSuspensionNoteOfResolutionIsFree = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.NoteOfResolutionIsFree).Select(x => x.Number).ToList();
             var lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant = returnedIntervals.Where(x => x.LowerSuspensionTreatmentEnum == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant).Select(x => x.Number).ToList();
 
-            Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 2, 5 }));
+            Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 5, 2 }));
             Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] {4 }));
             Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.Empty);
             Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
