@@ -17,7 +17,7 @@ namespace Tests.TwoVoiceVerticalShiftCouterpoint.SuspensionTest
         public void WhenCalculatingSuspensionTreatment()
         {
             _calculator = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
-            _result = _calculator.Calculate(0);
+            _result = _calculator.Calculate(-11);
         }
 
         [Test]
