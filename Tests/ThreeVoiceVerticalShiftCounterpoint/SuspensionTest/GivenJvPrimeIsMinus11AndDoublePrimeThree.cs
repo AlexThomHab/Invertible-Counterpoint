@@ -43,15 +43,15 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint.SuspensionTest
 
             Assert.That(upperSuspensionCannotForm, Is.EquivalentTo(new[] { 1, 2, 5 }));
             Assert.That(upperSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] {4 }));
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] { 3}));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspension, Is.Empty);
             Assert.That(upperSuspensionNoteOfResolutionIsFree, Is.Empty);
-            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 6, 7 }));
+            Assert.That(upperSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 6, 7, 3 }));
 
-            Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 3, 6 }));
-            Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 2, 4 }));
-            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.EquivalentTo(new[] {1 }));
+            Assert.That(lowerSuspensionCannotForm, Is.EquivalentTo(new[] { 3, 6, 7 }));
+            Assert.That(lowerSuspensionNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] {  4 }));
+            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspension, Is.Empty);
             Assert.That(lowerSuspensionNoteOfResolutionIsFree, Is.Empty);
-            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 5, 7 }));
+            Assert.That(lowerSuspensionIfOnDownbeatMustFormSuspensionAndNoteOfResolutionIsDissonant, Is.EquivalentTo(new[] { 0, 5, 1, 2 }));
         }
     }
 }
