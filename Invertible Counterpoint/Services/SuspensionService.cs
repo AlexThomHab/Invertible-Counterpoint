@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Invertible_Counterpoint.Models;
+﻿using Invertible_Counterpoint.Models;
 using Invertible_Counterpoint.Utility;
 
 namespace Invertible_Counterpoint.Services
@@ -37,13 +32,6 @@ namespace Invertible_Counterpoint.Services
             SuspensionTreatmentEnum originalIntervalSuspension,
             SuspensionTreatmentEnum newIntervalSuspension)
         {
-            var validTreatments = new[]
-            {
-                SuspensionTreatmentEnum.CannotFormSuspension,
-                SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension,
-                SuspensionTreatmentEnum.NoteOfResolutionIsDissonant,
-                SuspensionTreatmentEnum.NoteOfResolutionIsFree
-            };
             if (originalIntervalSuspension == SuspensionTreatmentEnum.IfOnDownbeatMustFormSuspension &&
                 newIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant
                 || originalIntervalSuspension == SuspensionTreatmentEnum.NoteOfResolutionIsDissonant &&
@@ -54,6 +42,5 @@ namespace Invertible_Counterpoint.Services
 
             return (SuspensionTreatmentEnum)Math.Min((int)originalIntervalSuspension, (int)newIntervalSuspension);
         }
-
     }
 }

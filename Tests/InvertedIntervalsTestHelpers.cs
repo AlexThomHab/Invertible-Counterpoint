@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using Invertible_Counterpoint.Models;
+﻿using Invertible_Counterpoint.Models;
+
+namespace Tests;
 
 static class InvertedIntervalsTestHelpers
 {
@@ -11,19 +12,19 @@ static class InvertedIntervalsTestHelpers
         AssertListEqual(actual.VariableDissonances, expected.VariableDissonances);
     }
 
-    private static void AssertListEqual(System.Collections.Generic.List<Interval> a, System.Collections.Generic.List<Interval> b)
+    private static void AssertListEqual(List<Interval> actualRowList, System.Collections.Generic.List<Interval> expectedRow)
     {
-        var ax = a.OrderBy(x => x.Number).ToArray();
-        var bx = b.OrderBy(x => x.Number).ToArray();
+        var actualRowListOrdered = actualRowList.OrderBy(x => x.Number).ToArray();
+        var expectedRowOrdered = expectedRow.OrderBy(x => x.Number).ToArray();
 
-        Assert.That(ax.Length, Is.EqualTo(bx.Length), "Length mismatch");
+        Assert.That(actualRowListOrdered.Length, Is.EqualTo(expectedRowOrdered.Length), "Length mismatch");
 
-        for (int i = 0; i < ax.Length; i++)
+        for (int i = 0; i < actualRowListOrdered.Length; i++)
         {
-            Assert.That(ax[i].Number, Is.EqualTo(bx[i].Number), "Number mismatch");
-            Assert.That(ax[i].IsConsonant, Is.EqualTo(bx[i].IsConsonant), "Consonance flag mismatch");
-            Assert.That(ax[i].UpperSuspensionTreatmentEnum, Is.EqualTo(bx[i].UpperSuspensionTreatmentEnum), "Upper suspension mismatch");
-            Assert.That(ax[i].LowerSuspensionTreatmentEnum, Is.EqualTo(bx[i].LowerSuspensionTreatmentEnum), "Lower suspension mismatch");
+            Assert.That(actualRowListOrdered[i].Number, Is.EqualTo(expectedRowOrdered[i].Number), "Number mismatch");
+            Assert.That(actualRowListOrdered[i].IsConsonant, Is.EqualTo(expectedRowOrdered[i].IsConsonant), "Consonance flag mismatch");
+            Assert.That(actualRowListOrdered[i].UpperSuspensionTreatmentEnum, Is.EqualTo(expectedRowOrdered[i].UpperSuspensionTreatmentEnum), "Upper suspension mismatch");
+            Assert.That(actualRowListOrdered[i].LowerSuspensionTreatmentEnum, Is.EqualTo(expectedRowOrdered[i].LowerSuspensionTreatmentEnum), "Lower suspension mismatch");
         }
     }
 }
