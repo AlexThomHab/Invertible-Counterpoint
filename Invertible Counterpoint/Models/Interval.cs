@@ -7,6 +7,7 @@ namespace Invertible_Counterpoint.Models
         public int Number { get; set; }
         public string Name { get; }
         public bool IsConsonant { get; }
+        public bool IsImperfectBecomesPerfect { get; set; }
         public SuspensionTreatmentEnum UpperSuspensionTreatmentEnum { get; set; }
         public SuspensionTreatmentEnum LowerSuspensionTreatmentEnum { get; set; }
         public Interval(int number, string name, bool isConsonant, SuspensionTreatmentEnum upperSuspensionTreatmentEnum, SuspensionTreatmentEnum lowerSuspensionTreatmentEnum)

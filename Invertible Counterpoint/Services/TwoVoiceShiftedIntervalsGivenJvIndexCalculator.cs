@@ -44,6 +44,7 @@ namespace Invertible_Counterpoint.Services
                         var shiftedIntervalToCompare = CopyInterval(_intervalsInverted[int.Abs(jvIndex + i) % 7]);
                         var jvIsNegative = true;
                         var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        combineTwoIntervalsSuspensionsResult.IsImperfectBecomesPerfect = IsImperfectBecomesPerfect(jv0Interval, shiftedIntervalToCompare);
                         invertedIntervals.FixedConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
@@ -53,6 +54,7 @@ namespace Invertible_Counterpoint.Services
                         var shiftedIntervalToCompare = CopyInterval(_intervals[int.Abs(jvIndex + i) % 7]);
                         var jvIsNegative = false;
                         var combineTwoIntervalsSuspensionsResult = SuspensionService.CombineTwoIntervals(jv0Interval, shiftedIntervalToCompare, jvIndex, i, jvIsNegative);
+                        combineTwoIntervalsSuspensionsResult.IsImperfectBecomesPerfect = IsImperfectBecomesPerfect(jv0Interval, shiftedIntervalToCompare);
                         invertedIntervals.FixedConsonances.Add(combineTwoIntervalsSuspensionsResult);
                         continue;
                     }
@@ -124,6 +126,16 @@ namespace Invertible_Counterpoint.Services
             }
             return invertedIntervals;
         }
+
+        private bool IsImperfectBecomesPerfect(Interval jv0Interval, Interval shiftedIntervalToCompare)
+        {
+            var perfectIntervals = new HashSet<int> { 0, 4, 7 };
+            var imperfectIntervals = new HashSet<int> { 2, 5};
+
+            return imperfectIntervals.Contains(jv0Interval.Number)
+                   && perfectIntervals.Contains(Math.Abs(shiftedIntervalToCompare.Number));
+        }
+
 
         private static Interval CopyInterval(Interval sourceInterval) =>
             new Interval(sourceInterval.Number, sourceInterval.Name, sourceInterval.IsConsonant, sourceInterval.UpperSuspensionTreatmentEnum, sourceInterval.LowerSuspensionTreatmentEnum);
