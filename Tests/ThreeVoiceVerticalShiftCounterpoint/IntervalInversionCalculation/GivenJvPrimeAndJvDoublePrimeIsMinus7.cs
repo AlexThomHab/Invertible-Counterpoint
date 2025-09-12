@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Invertible_Counterpoint.Models;
 using Invertible_Counterpoint.Services;
 using NUnit.Framework;
-using static InvertedIntervalsTestHelpers;
+using static Tests.InvertedIntervalsTestHelpers;
 
 namespace Tests.ThreeVoiceVerticalShiftCounterpoint.IntervalInversionCalculation
 {
@@ -36,9 +36,9 @@ namespace Tests.ThreeVoiceVerticalShiftCounterpoint.IntervalInversionCalculation
         {
             var two = new TwoVoiceShiftedIntervalsGivenJvIndexCalculator();
 
-            var expected0 = two.Calculate(_jvPrime);        // I↔II
-            var expected1 = two.Calculate(_jvDoublePrime);  // II↔III
-            var expected2 = two.Calculate(_jvSigma);        // I↔III
+            var expected0 = two.Calculate(_jvPrime);
+            var expected1 = two.Calculate(_jvDoublePrime);
+            var expected2 = two.Calculate(_jvSigma);
 
             AssertIntervalsEqual(_rows[0], expected0);
             AssertIntervalsEqual(_rows[1], expected1);

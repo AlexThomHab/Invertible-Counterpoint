@@ -32,7 +32,6 @@ namespace Tests.TwoVoiceVerticalShiftCouterpoint.IntervalInversionCalculation
         {
             var result = _calculator.Calculate(jvIndex);
 
-            // Category membership checks
             Assert.That(result.FixedConsonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedCons));
             Assert.That(result.FixedDissonances.Select(i => i.Number), Is.EquivalentTo(expectedFixedDis));
             Assert.That(result.VariableConsonances.Select(i => i.Number), Is.EquivalentTo(expectedVarCons));

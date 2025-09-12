@@ -12,7 +12,7 @@ static class InvertedIntervalsTestHelpers
         AssertListEqual(actual.VariableDissonances, expected.VariableDissonances);
     }
 
-    private static void AssertListEqual(List<Interval> actualRowList, System.Collections.Generic.List<Interval> expectedRow)
+    private static void AssertListEqual(List<Interval> actualRowList, List<Interval> expectedRow)
     {
         var actualRowListOrdered = actualRowList.OrderBy(x => x.Number).ToArray();
         var expectedRowOrdered = expectedRow.OrderBy(x => x.Number).ToArray();
