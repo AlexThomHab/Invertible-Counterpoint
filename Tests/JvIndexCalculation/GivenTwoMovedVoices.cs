@@ -1,4 +1,3 @@
-using Invertible_Counterpoint;
 using Invertible_Counterpoint.Services;
 
 namespace Tests.JvIndexCalculation
